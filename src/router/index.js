@@ -1,23 +1,30 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import PayChoose from "../views/PayChoose.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "PayChoose",
+    component: PayChoose,
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: "/PayInformation",
+    name: "PayInformation",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+      import(/* webpackChunkName: "about" */ "../views/PayInformation.vue"),
+  },
+  {
+    path: "/PaySuccess",
+    name: "PaySuccess",
+    component: () => import(/* webpackChunkName: "about" */ "../views/PaySuccess.vue"),
+  },
+  {
+    path: "*",
+    name: "PayChoose",
+    component: PayChoose,
   },
 ];
 
@@ -25,6 +32,16 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (!from.name) {
+    if (to.name === "PayInformation" || to.name === "PaySuccess") {
+      next("/");
+      return;
+    }
+  }
+  next();
 });
 
 export default router;
