@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     submit() {
-      this.$emit("submit", this.chosen);
+      this.$emit("submit", "PayInformation", this.chosen);
     },
   },
 };

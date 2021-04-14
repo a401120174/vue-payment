@@ -18,9 +18,9 @@ import OrderDetail from "./components/OrderDetail";
 import router from "./router";
 
 const pathMap = {
-  1: "PayChoose",
-  2: "PayInformation",
-  3: "PaySuccess",
+  PayChoose: 1,
+  PayInformation: 2,
+  PaySuccess: 3,
 };
 
 export default {
@@ -32,17 +32,16 @@ export default {
     };
   },
   methods: {
-    update(payment) {
+    update(nextPath, payment) {
       if (payment) {
         this.chosenPayment = payment;
       }
-      this.currentStep++;
+      router.push(nextPath);
     },
   },
   watch: {
-    currentStep() {
-      console.log(pathMap[this.currentStep]);
-      router.push(pathMap[this.currentStep]);
+    $route(to) {
+      this.currentStep = pathMap[to.name];
     },
   },
 };

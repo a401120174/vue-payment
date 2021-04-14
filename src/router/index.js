@@ -23,8 +23,7 @@ const routes = [
   },
   {
     path: "*",
-    name: "PayChoose",
-    component: PayChoose,
+    redirect: "/",
   },
 ];
 

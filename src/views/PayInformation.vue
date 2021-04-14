@@ -150,7 +150,7 @@ export default {
     submit() {
       this.checkError = true;
       if (this.validate()) {
-        this.$emit("submit");
+        this.$emit("submit", "PaySuccess");
       }
     },
     validate() {
