@@ -16,34 +16,34 @@
         >
           <input
             type="number"
-            v-model="formData.credit1"
             class="creditNum"
             ref="credit1"
-            maxlength="4"
+            :value="formData.credit1"
+            @input="changeCredit('credit1', $event)"
           />
           -
           <input
             type="number"
-            v-model="formData.credit2"
             class="creditNum"
             ref="credit2"
-            maxlength="4"
+            :value="formData.credit2"
+            @input="changeCredit('credit2', $event)"
           />
           -
           <input
             type="number"
-            v-model="formData.credit3"
             class="creditNum"
             ref="credit3"
-            maxlength="4"
+            :value="formData.credit3"
+            @input="changeCredit('credit3', $event)"
           />
           -
           <input
             type="number"
-            v-model="formData.credit4"
             class="creditNum"
             ref="credit4"
-            maxlength="4"
+            :value="formData.credit4"
+            @input="changeCredit('credit4', $event)"
           />
         </input-field>
         <input-field
@@ -155,12 +155,16 @@ export default {
     },
     validate() {
       return !(
-        this.paytimeError &&
-        this.creditNumError &&
-        this.validDateError &&
-        this.creditBackNumError &&
+        this.paytimeError ||
+        this.creditNumError ||
+        this.validDateError ||
+        this.creditBackNumError ||
         this.eMailError
       );
+    },
+    changeCredit(input, e) {
+      if (e.target.value.length > 4) e.target.value = e.target.value.slice(0, 4);
+      this.formData[input] = e.target.value;
     },
   },
   computed: {
@@ -242,6 +246,18 @@ select {
   padding: 14.5px 10px;
   border-radius: 3px;
   border: 1px solid #aaa;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .inputWapper {
